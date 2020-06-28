@@ -4,9 +4,8 @@ rpm -q epel-release || sudo yum install -y epel-release
 rpm -q ansible || sudo yum install -y ansible
 ansible-playbook simple-server.yml
 
-test -f roles/requirements.yml || {
-  mkdir roles
-  cat >>roles/requirements.yml<<EOF
+mkdir -p roles
+cat >roles/requirements.yml<<EOF
 ---
 
 - src: ikke_t.container_image_cleanup
@@ -15,9 +14,7 @@ test -f roles/requirements.yml || {
 - src: ikke_t.podman_container_systemd
   name: podman_container_systemd
 EOF
-
-  ansible-galaxy --roles-path roles install -r roles/requirements.yml
-}
+ansible-galaxy role install -p roles -r roles/requirements.yml
 
 
 cat <<EOF
