@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "Checking if we are running Centos 8 underneath..."
+test -f /etc/centos-release && grep "CentOS Linux release 8" /etc/centos-release || exit
+
 rpm -q epel-release || sudo yum install -y epel-release
 rpm -q ansible || sudo yum install -y ansible
 ansible-playbook simple-server.yml
@@ -26,7 +29,7 @@ You may now run
 	ansible-playbook <yml-file>
 
 with <yml-file> being any of
-$(ls -1 *yml)
+$(ls -1 run-*.yml)
 
 to (re-)install a functionality of the server.
 EOF

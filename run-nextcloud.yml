@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  gather_facts: yes
+  #  vars:
+  #  myhostame: simple-server.local
+  #vars_files:
+  #  - /root/vars.yml
+  become: yes
+  tasks:
+    - name: import nextcloud_pod role to install it all
+      vars:
+        nc_admin_user: admin
+        nc_admin_password: foobar
+        nc_data_volume_host_path: /tmp/awx_data
+        nc_db_volume_host_path: /tmp/awx_db
+        nc_host_port: 80/tcp
+        nc_db_port: 3306/tcp
+        #container_state: absent or running
+      import_role:
+        name: nc_pod
