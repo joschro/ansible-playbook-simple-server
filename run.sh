@@ -5,7 +5,7 @@ test -f /etc/centos-release && grep "CentOS Linux release 8" /etc/centos-release
 
 rpm -q epel-release || sudo yum install -y epel-release
 rpm -q ansible || sudo yum install -y ansible
-test -f simple-server.yml && {
+test -f simple-server.yml || {
   rpm -q git || sudo yum install -y git
   wget https://github.com/joschro/ansible-playbook-simple-server/archive/refs/heads/master.zip && unzip master.zip && cd ansible-playbook-simple-server-master || exit
 }
